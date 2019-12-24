@@ -1,0 +1,104 @@
+{% extends "custom/basic.html" %} {% block head_css %} {{ super() }}
+<link rel="stylesheet" type="text/css" href="/static/assets/stylesheets/masters.css" />
+<link rel="stylesheet" type="text/css" href="/static/datatables.min.css" /> {% endblock %} {% block body %}
+<div id="app">
+    <div class="dashboard">
+        <div class="container">
+            <h2>Modal Example</h2>
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#myModal" style="color: #ffffff;background-color: rgb(68, 26, 184);">
+                Send Email
+            </button>
+
+            <button id="tokenButton">
+                Validate token
+            </button>
+            <p id="token">your token is 3n4b</p>
+            <p id="token2">your token</p>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Send signup link to the new user</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="usr">Email:</label>
+                                <div><input type="text" id="validate" width="30"><span></span></div>
+                                <p id="validEmail" style="margin: 9px 4px 0 0; position: absolute;width: 100px;height: 16px;"></p>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="button" value="Click Me" onclick="sendEmail();" />
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {% endblock %} {% block tail_js %}
+    <script type="text/javascript" src="/static/datatables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#validate").keyup(function() {
+                var email = $("#validate").val();
+                if (email != 0) {
+                    if (isValidEmailAddress(email)) {
+                        $("#validEmail").hide();
+                    } else {
+                        $("#validEmail").css("color", "red").text("invalid email!!!");
+                    }
+                } else {
+                    $("#validEmail").text("Please provide an email");
+                }
+            });
+            $("#token").hide();
+            $("#token2").hide();
+            $("#tokenButton").click(function() {
+                $("#token").show();
+                $("#token2").show();
+
+                var getUrlParameter = function getUrlParameter(sParam) {
+                    let signUpURL = "http://0.0.0.0:8088/superuser/signup?token=3n4b",
+                        ssPageURL = window.location.search.substring(1);
+                    console.log("sPageURL", ssPageURL);
+
+
+                    let sURLVariables = signUpURL.split('?'),
+                        sParameterName
+                    console.log("sURLVariables .", sURLVariables);
+
+                    sParameterName = sURLVariables[1].split('=');
+                    // console.log("sParameterName", sParameterName);
+                    // console.log("token name", sParameterName[0]);
+                    // console.log("token value", sParameterName[1]);
+
+                    if (sParameterName[1] == sParam) {
+                        console.log("succsss");
+                        location.href = signUpURL;
+                        // return sParam;
+                    } else
+                        return false;
+                };
+                var tech = getUrlParameter('3n4b');
+            });
+
+            isValidEmailAddress = (emailAddress) => {
+                var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+                return pattern.test(emailAddress);
+            }
+
+            sendEmail = (email) => {
+                console.log("email to send", email)
+            }
+        })
+    </script>
+    {% endblock %}
