@@ -107,7 +107,7 @@
                             <h4>Personal Information: <span>Step 1 - 5</span></h4>
                             <div class="form-group">
                                 <label>Full Name <span>*</span></label>
-                                <input type="text" name="First Name" class="form-control required">
+                                <input type="text" id="fname" name="First Name" class="form-control required">
                             </div>
                             <div class="form-group">
                                 <label>Mobile Number <span>*</span></label>
@@ -116,9 +116,9 @@
                             </div>
                             <div class="form-group">
                                 <label>Email<span style="color: red;">*</span>
-                                <span id="validEmail"></span>
+                                <span id="error_personal_email"></span>
                                  </label>
-                                <input type="email" id="validateEmail" name="Email" class="form-control required">
+                                <input type="email" id="personal_email" name="personal_email" class="form-control required">
                             </div>
                             <div class="date">
                                 <div class="row form-inline">
@@ -174,34 +174,30 @@
 
 
                             <div class="form-group">
-                                <label>Company Name <span>*</span></label>
-                                <input type="text" name="Username" class="form-control required">
+                                <label>Company Name <span style="color: red;">*</span></label>
+                                <input type="text" id="cname" name="Username" class="form-control required">
                             </div>
 
                             <div class="form-group">
-                                <label>Company Day </label>
+                                <label>Company Day <span style="color: red;">*</span></label>
                                 <input type="text" class="form-control required" id="company_datepicker">
                             </div>
 
                             <div class="form-group">
-                                <label>Address </label>
-                                <input type="text" name="Address" class="form-control required ">
+                                <label>Address <span style="color: red;">*</span></label>
+                                <input type="text" id="cAddress" name="Address" class="form-control required ">
                             </div>
                             <div class="form-group">
-                                <label>Zip Code </label>
-                                <input type="text" name="Zip Code" class="form-control required">
+                                <label>Zip Code <span style="color: red;">*</span></label>
+                                <input type="text" id="mypincode" name="Zip Code" class="form-control required">
                             </div>
                             <div class="form-group">
-                                <label>State </label>
-                                <select id="stateList" class="form-control required">
-                                    <option value="none">Select a State</option>
-                                </select>
+                                <label>State <span style="color: red;">*</span></label>
+                                <input type="text" id="state" class="form-control required">
                             </div>
                             <div class="form-group">
-                                <label>Country </label>
-                                <select id="countryList2" class="form-control required">
-                                    <option value="none">Select a Country</option>
-                                </select>
+                                <label>Country <span style="color: red;">*</span></label>
+                                <input type="text" id="country_name" class="form-control required">
                             </div>
                             <div class="form-wizard-buttons">
                                 <button type="button" class="btn btn-previous">Previous</button>
@@ -222,16 +218,19 @@
                             <h4>Account Information : <span>Step 3 - 5</span></h4>
                             <div class="form-group">
                                 <label>Full Name <span>*</span></label>
-                                <input type="text" name="First Name" class="form-control required">
+                                <input type="text" id="afname" name="First Name" class="form-control required">
                             </div>
                             <div class="form-group">
-                                <label>Mobile Number <span>*</span></label>
+                                <label>Mobile Number <span>*</span>
+                                    <span id="account_mobile_error" style="color: crimson;">Mobile number must me 10 digits!!</span>
+                                </label>
                                 <input type="number" id="account_mobile" name="Phone" class="form-control required">
-                                <p id="account_mobile_error" style="color: crimson;">Mobile number must me 10 digits!!</p>
                             </div>
                             <div class="form-group">
-                                <label>Email </label>
-                                <input type="email" name="Email" class="form-control">
+                                <label>Email<span style="color: red;">*</span>
+                                    <span id="error_account_email"></span>
+                                </label>
+                                <input type="email" id="account_email" name="account_email" class="form-control required">
                             </div>
                             <div class="form-group">
                                 <ul class="unstyled">
@@ -261,16 +260,20 @@
                             <h4>Admin Information: <span>Step 4 - 5</span></h4>
                             <div class="form-group">
                                 <label>Full Name <span>*</span></label>
-                                <input type="text" name="First Name" class="form-control required">
+                                <input type="text" id="adfname" name="First Name" class="form-control required">
                             </div>
                             <div class="form-group">
-                                <label>Mobile Number <span>*</span></label>
+                                <label>Mobile Number <span>*</span>
+                                    <span id="admin_mobile_error" style="color: crimson;">Mobile number must me 10 digits!!</span>
+                                
+                                </label>
                                 <input type="number" id="admin_mobile" name="Phone" class="form-control required">
-                                <p id="admin_mobile_error" style="color: crimson;">Mobile number must me 10 digits!!</p>
                             </div>
                             <div class="form-group">
-                                <label>Email </label>
-                                <input type="email" name="Email" class="form-control ">
+                                <label>Email<span style="color: red;">*</span>
+                                    <span id="error_admin_email"></span>
+                                </label>
+                                <input type="email" id="admin_email" name="admin_email" class="form-control required">
                             </div>
                             <div class="form-group">
                                 <ul class="unstyled">
@@ -316,7 +319,7 @@
                             </div>
                             <div class="form-group">
                                 <label>GST </label>
-                                <input type="text" name="Gst" class="form-control ">
+                                <input type="text" id="gst" name="Gst" class="form-control ">
                             </div>
                             <div class="form-group">
                                 <ul class="unstyled">
@@ -358,40 +361,76 @@
         return pattern.test(emailAddress);
     }
     $(function() {
-        $country = "https://restcountries.eu/rest/v2/all"
-
-        // $("#country1").click(function() {
-        $.ajax({
-            url: $country,
-            success: function(result) {
-                console.log(result);
-                $.each(result, function(index, value) {
-                    $("#countryList2").append("<option value=" + value.name + ">" + value.name + "</option>");
-                });
+        $postalpincode_API = "https://api.postalpincode.in/pincode/"
+        $pincode_id = $("#mypincode");
+        $pincode_id.keyup(function() {
+            $pincode = $pincode_id.val();
+            if (!isNaN($pincode) && $pincode.toString().length == 6) {
+                $.ajax({
+                    url: $postalpincode_API + $pincode,
+                    success: function(res) {
+                        $("#state").val(res[0].PostOffice[0].State)
+                        $("#country_name").val(res[0].PostOffice[0].Country)
+                    }
+                })
             }
-        });
+        })
 
-        $.ajax({
-                url: "http://battuta.medunes.net/api/region/IN/all/?key=e35c691d5f10d235c632562fff0d9d31",
-                dataType: 'jsonp',
-                success: function(result) {
-                    $.each(result, function(index, value) {
-                        console.log("state", index, value.region);
-                        $("#stateList").append("<option value=" + value.region + ">" + value.region + "</option>");
-                    })
-                }
-            })
-            // });
-        $("#validateEmail").keyup(function() {
-            var email = $("#validateEmail").val();
+        $personal_email = $("#personal_email");
+        $error_personal_email = $("#error_personal_email");
+        // $personal_email.keyup(function() {
+        $(":input[name=personal_email]").bind("keyup change", function(e) {
+            var email = $personal_email.val();
             if (email != 0) {
                 if (isValidEmailAddress(email)) {
-                    $("#validEmail").hide();
+                    $error_personal_email.animate({
+                        left: '250px',
+                        opacity: '0',
+                        height: '0px'
+                    }, "slow");
                 } else {
-                    $("#validEmail").css("color", "red").text("invalid email!!!");
+                    $error_personal_email.css("color", "orange").text("invalid email!!!");
                 }
             } else {
-                $("#validEmail").text("Please provide an email");
+                $error_personal_email.text("Please provide an email");
+            }
+        });
+        $account_email = $("#account_email");
+        $error_account_email = $("#error_account_email");
+        // $account_email.keyup(function() {
+        $(":input[name=account_email]").bind("keyup change", function(e) {
+            var email = $account_email.val();
+            if (email != 0) {
+                if (isValidEmailAddress(email)) {
+                    $error_account_email.animate({
+                        left: '250px',
+                        opacity: '0',
+                        height: '0px'
+                    }, "slow");
+                } else {
+                    $error_account_email.css("color", "orange").text("invalid email!!!");
+                }
+            } else {
+                $error_account_email.text("Please provide an email");
+            }
+        });
+        $admin_email = $("#admin_email");
+        $error_admin_email = $("#error_admin_email");
+        // $admin_email.keyup(function() {
+        $(":input[name=admin_email]").bind("keyup change", function(e) {
+            var email = $admin_email.val();
+            if (email != 0) {
+                if (isValidEmailAddress(email)) {
+                    $error_admin_email.animate({
+                        left: '250px',
+                        opacity: '0',
+                        height: '0px'
+                    }, "slow");
+                } else {
+                    $error_admin_email.css("color", "orange").text("invalid email!!!");
+                }
+            } else {
+                $error_admin_email.text("Please provide an email");
             }
         });
 
@@ -413,12 +452,12 @@
         $cf = $('#phonenumber');
         $error = $('#phonenumber_error')
         $error.hide();
-        $cf.blur(function(e) {
+        $cf.keyup(function(e) {
             phone_p = $(this).val();
             phone_p = phone_p.replace(/[^0-9]/g, '');
             if (phone_p.length < 10) {
                 $error.show();
-                $cf.val('');
+                // $cf.val('');
                 $cf.focus();
             }
             if (phone_p.length >= 10) {
@@ -428,12 +467,12 @@
         $ac_m = $('#account_mobile');
         $error_m = $('#account_mobile_error')
         $error_m.hide();
-        $ac_m.blur(function(e) {
+        $ac_m.keyup(function(e) {
             phone_ac = $(this).val();
             phone_ac = phone_ac.replace(/[^0-9]/g, '');
             if (phone_ac.length < 10) {
                 $error_m.show();
-                $ac_m.val('');
+                // $ac_m.val('');
                 $ac_m.focus();
             }
             if (phone_ac.length >= 10) {
@@ -443,19 +482,18 @@
         $ad_m = $('#admin_mobile');
         $error_ad = $('#admin_mobile_error')
         $error_ad.hide();
-        $ad_m.blur(function(e) {
+        $ad_m.keyup(function(e) {
             phone_ad = $(this).val();
             phone_ad = phone_ad.replace(/[^0-9]/g, '');
             if (phone_ad.length < 10) {
                 $error_ad.show();
-                $ad_m.val('');
+                // $ad_m.val('');
                 $ad_m.focus();
             }
             if (phone_ad.length >= 10) {
                 $error_ad.hide();
             }
         });
-        //
     });
 
 
@@ -470,11 +508,18 @@
         })
     })
 
+    $marital_status = "";
+    anniversary_date = "";
+
     function yesnoCheck() {
         if (document.getElementById('yesCheck').checked) {
             document.getElementById('ifYes').style.display = 'block';
-        } else document.getElementById('ifYes').style.display = 'none';
-
+            $marital_status = "Married";
+            $anniversary_date = $("#anniversary_datepicker").val();
+        } else {
+            document.getElementById('ifYes').style.display = 'none';
+            $marital_status = "Unmarried";
+        }
     }
 
     $(function() {
@@ -511,5 +556,61 @@
         };
         var tech = getUrlParameter('3n4b');
     });
+
+    // $("form").submit(function(event) {
+    //     if ($("input:first").val() === "javatpoint") {
+    //         $("span").text("Submitted Successfully.").show();
+    //         return;
+    //     }
+    //     $("span").text("Not valid!").show().fadeOut(2000);
+    //     event.preventDefault();
+    // });
+
+    // cache all values here in a object
+    var selectedIndustry = '';
+    $("#ddlOther").change(function() {
+        selectedIndustry = $(this).children("option:selected").val();
+        console.log("You have selected the country - " + selectedIndustry);
+    });
+    $signupData = {
+        fname: $("#fname").val(),
+        mbile: $("#phonenumber").val(),
+        email: $("#personal_email").val(),
+        dob: $("#datepicker").val(),
+        marital_status: $marital_status,
+        Anniversary_date: $anniversary_date,
+
+        comapny_name: $("#cname").val(),
+        company_day: $("#company_datepicker").val(),
+        address: $("#cAddress").val(),
+        pincode: $("#mypincode").val(),
+        state: $("#state").val(),
+        country: $("#country_name").val(),
+
+        afname: $("#afname").val(),
+        account_mobile: $("#account_mobile").val(),
+        $account_email: $("#account_email").val(),
+
+        afdname: $("#afdname").val(),
+        admin_mobile: $("#admin_mobile").val(),
+        admin_email: $("#admin_email").val(),
+
+        industry: selectedIndustry,
+        gst: $("#gst").val()
+    }
+
+    $("form").submit(function() {
+        // hit POST API 
+        $.ajax({
+            type: 'POST',
+            url: "",
+            success: function(response) {
+                //
+            },
+            error: function(error) {
+                //
+            }
+        })
+    })
 </script>
 {% endblock %}
